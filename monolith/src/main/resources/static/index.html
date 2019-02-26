@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1>Feedback form - monolith</h1>
+<div class="container">
+    <form>
+        <label for="feedback">Feedback</label>
+        <input id="feedback" type="text" name="feedback"/>
+
+        <div>
+
+            <buttom id='button' type="submit">Submit!!!</buttom>
+
+            <buttom id='slow-button' type="submit">Slow submit!!!</buttom>
+
+        </div>
+    </form>
+</div>
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+    (function () {
+
+        document.getElementById('button').addEventListener('click', function (event) {
+
+            const url = 'http://localhost:9000/feedback'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            })
+
+        });
+
+        document.getElementById('slow-button').addEventListener('click', function (event) {
+
+            const url = 'http://localhost:9000/feedback-slow'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            })
+
+        });
+    }());
+
+
+</script>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1>Feedback form</h1>
+<div class="container">
+    <form>
+        <label for="feedback">Feedback</label>
+        <input id="feedback" type="text" name="feedback"/>
+
+        <div>
+
+            <buttom id='button' type="submit">Submit!!!</buttom>
+
+            <buttom id='slow-button' type="submit">Slow submit!!!</buttom>
+
+            <buttom id='circuit-breaker-button' type="submit">Circuit breaker submit!!!</buttom>
+
+            <buttom id='server-timeout-button' type="submit">Server timeout submit!!!</buttom>
+
+            <buttom id='client-timeout-button' type="submit">Client timeout submit!!!</buttom>
+
+            <buttom id='retry-button' type="submit">Retry submit!!!</buttom>
+
+            <buttom id='reactive-button' type="submit">Reactive submit!!!</buttom>
+
+            <buttom id='async-button' type="submit">Async submit!!!</buttom>
+
+        </div>
+    </form>
+</div>
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+    var baseUrl = 'http://localhost:9200';
+
+    (function () {
+
+        document.getElementById('button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            })
+
+        });
+
+        document.getElementById('slow-button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback-slow'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            });
+
+        });
+
+        document.getElementById('circuit-breaker-button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback-circuit-breaker'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            });
+
+        });
+
+        document.getElementById('server-timeout-button').addEventListener('click', function (event) {
+            const url = baseUrl + '/feedback-server-timeout'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            }).catch((response) => {alert("Server unavailable apply service degradation: " + response);});
+
+        });
+
+        document.getElementById('client-timeout-button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback-slow'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback,
+                timeout: 1000
+            }).catch((response) => {alert("Client could not wait for response: " + response);});
+
+        });
+
+        document.getElementById('retry-button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback-retry'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            }).catch((response) => {alert("Retry response: " + response);});
+
+        });
+
+
+        document.getElementById('reactive-button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback-reactive'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            });
+
+        });
+
+
+        document.getElementById('async-button').addEventListener('click', function (event) {
+
+            const url = baseUrl + '/feedback-async'
+            let feedback = document.getElementById('feedback').value;
+            console.log(feedback);
+            axios({
+                method: 'post',
+                url: url,
+                data: feedback
+            });
+
+        });
+
+    }());
+
+
+</script>
+</html>
