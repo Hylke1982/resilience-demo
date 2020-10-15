@@ -32,7 +32,7 @@ public class BackendService {
         return response;
     }
 
-    @Retryable(maxAttempts = 5, backoff = @Backoff(delay = 5000))
+    @Retryable(maxAttempts = 10, backoff = @Backoff(delay = 10000))
     public String doRetryBackendCall() {
         final RestTemplate restTemplate = new RestTemplate();
         LOG.info(String.format("Doing retry request to URI [%s]", url));

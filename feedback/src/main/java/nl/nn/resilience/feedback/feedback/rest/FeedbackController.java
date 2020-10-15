@@ -74,7 +74,11 @@ public class FeedbackController {
 
         ForkJoinPool.commonPool().submit(() -> {
             LOG.info("Processing in separate thread");
-            output.setResult(ResponseEntity.ok(backendService.doRetryBackendCall()));
+            try {
+                output.setResult(ResponseEntity.ok(backendService.doSlowBackendCall()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         return output;
     }
